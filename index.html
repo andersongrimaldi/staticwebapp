@@ -182,5 +182,19 @@
             Anderson Pimenta Grimaldi • Hospedado via Azure Static Web Apps
         </footer>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if (!sessionStorage.getItem("acesso_notificado")) {
+                fetch("/api/notificar", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ pagina: window.location.pathname })
+                }).then(() => {
+                    sessionStorage.setItem("acesso_notificado", "true");
+                }).catch(() => {});
+            }
+        });
+    </script>
 </body>
 </html>
